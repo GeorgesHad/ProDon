@@ -5,4 +5,21 @@
     <string name="title_notifications">Notifications</string>
     <string name="add_player">Add Player</string>
     <string name="find_player">Find Player</string>
+    <string name="name">Name</string>
+<string name="enter_new_password">Enter New Password</string>
+<string name="re_enter_new_password">Re-enter new Password</string>
+<string name="re_enter_password">Re-enter password</string>
+<string name="register">Register</string>
+<string name="password">Password</string>
+<string name="check">Check</string>
+<string name="enter_old_password">Enter old Password</string>
+<string name="start_a_ride">Start a ride</string>
+    <string name="parent_phone">Parent Phone</string>
+    <string name="player_phone">Player Phone</string>
+    <string name="parent_name">Parent name</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="birth_year">Birth Year</string>
+    <string name="no_players_match_your_search">No players match your search.</string>
+    <string name="search">Search</string>
 </resources>
