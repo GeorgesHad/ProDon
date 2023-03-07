@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // SQL statements to create the tables
     private static final String SQL_CREATE_PLAYERS =
             "CREATE TABLE " + TABLE_PLAYERS + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_FIRST_NAME + " TEXT," +
                     COLUMN_LAST_NAME + " TEXT," +
                     COLUMN_DATE_OF_BIRTH + " TEXT," +
@@ -46,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_GROUPS =
             "CREATE TABLE " + TABLE_GROUPS + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_GROUP_NAME + " TEXT," +
                     COLUMN_COACH_ID + " INTEGER," +
                     "FOREIGN KEY (" + COLUMN_COACH_ID + ") REFERENCES " + TABLE_COACHES + "(" + COLUMN_ID + ")" +
@@ -54,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_COACHES =
             "CREATE TABLE " + TABLE_COACHES + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_COACH_FIRST_NAME + " TEXT," +
                     COLUMN_COACH_LAST_NAME + " TEXT" +
                     ");";
@@ -75,5 +75,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Not implemented in this example
     }
 }
+
 
 
