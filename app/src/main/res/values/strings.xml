@@ -22,4 +22,8 @@
     <string name="birth_year">Birth Year</string>
     <string name="no_players_match_your_search">No players match your search.</string>
     <string name="search">Search</string>
+    <string name="coaches">Coaches</string>
+    <string name="results_for_your_search">Results for your search:</string>
+    <string name="add_new">add new</string>
+    <string name="coach_groups">Coach/Groups</string>
 </resources>
