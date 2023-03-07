@@ -10,6 +10,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.prodon.R;
+import com.example.prodon.ui.sqliteHelper.PlayerModel;
 
 
 public class AddFragment extends Fragment {
@@ -29,7 +30,8 @@ public class AddFragment extends Fragment {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                PlayerModel playerModel = new PlayerModel(fName.getText().toString(),lName.getText().toString(),parentName.getText().toString(),
+                        parentPhone.getText().toString(),playerPhone.getText().toString(),Integer.parseInt(year.getText().toString()));
             }
         });
         return v;
