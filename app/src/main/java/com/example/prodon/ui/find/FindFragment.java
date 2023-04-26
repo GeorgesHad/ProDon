@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prodon.R;
 import com.example.prodon.databinding.FragmentFindBinding;
+import com.example.prodon.ui.sqliteHelper.DatabaseHelper;
 
 
 public class FindFragment extends Fragment {
@@ -35,7 +36,8 @@ public class FindFragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DatabaseHelper databaseHelper = new DatabaseHelper(v.getContext());
+                databaseHelper.searchPlayer("geo",v.getContext());
             }
         });
         return v;

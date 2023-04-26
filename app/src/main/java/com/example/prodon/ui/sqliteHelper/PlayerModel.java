@@ -3,9 +3,19 @@ package com.example.prodon.ui.sqliteHelper;
 import androidx.annotation.Nullable;
 
 public class PlayerModel {
-    private String fName,lName,parentName,parentPhone,playerPhone;
-    private int year;
+    private String fName,lName,parentName,parentPhone,playerPhone,dateJoined;
+    private int year,id;
 
+    public PlayerModel(int id,String fName, String lName, String parentName, @Nullable String parentPhone, @Nullable String playerPhone, String dateJoined, int year) {
+        this.fName = fName;
+        this.lName = lName;
+        this.parentName = parentName;
+        this.parentPhone = parentPhone;
+        this.playerPhone = playerPhone;
+        this.dateJoined = dateJoined;
+        this.year = year;
+        this.id = id;
+    }
     public PlayerModel(String fName, String lName, String parentName, @Nullable String parentPhone,@Nullable String playerPhone, int year) {
         this.fName = fName;
         this.lName = lName;
@@ -14,7 +24,6 @@ public class PlayerModel {
         this.playerPhone = playerPhone;
         this.year = year;
     }
-
     public String getfName() {
         return fName;
     }
@@ -61,5 +70,13 @@ public class PlayerModel {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public String getDateJoined() {
+        return dateJoined;
+    }
+
+    public void setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
     }
 }
