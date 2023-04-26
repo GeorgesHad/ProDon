@@ -17,4 +17,10 @@
         android:label="@string/add_player"
         tools:layout="@layout/fragment_add" />
 
+    <fragment
+        android:id="@+id/navigation_coach"
+        android:name="com.example.prodon.ui.coaches_groups.CoachFragment"
+        android:label="@string/coach_groups"
+        tools:layout="@layout/fragment_coaches" />
+
 </navigation>
