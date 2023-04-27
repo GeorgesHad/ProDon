@@ -32,6 +32,14 @@ public class PlayerModel {
         this.fName = fName;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getlName() {
         return lName;
     }
