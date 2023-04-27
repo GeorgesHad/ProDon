@@ -114,7 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<PlayerModel> searchPlayer(String playerName, String playerLname, Context context) {
         ArrayList<PlayerModel> players= new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] projection = { COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PARENT_NAME, COLUMN_DATE_OF_BIRTH, COLUMN_PARENT_PHONE_NUMBER, COLUMN_PLAYER_PHONE_NUMBER, COLUMN_DATE_JOINED, COLUMN_STATUS, COLUMN_STATUS_SINCE, COLUMN_GROUP_ID };
+        String[] projection = { COLUMN_ID,COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PARENT_NAME, COLUMN_DATE_OF_BIRTH, COLUMN_PARENT_PHONE_NUMBER, COLUMN_PLAYER_PHONE_NUMBER, COLUMN_DATE_JOINED, COLUMN_STATUS, COLUMN_STATUS_SINCE, COLUMN_GROUP_ID };
 
         String selection = COLUMN_FIRST_NAME + " LIKE ? AND " + COLUMN_LAST_NAME + " LIKE ?";
         String[] selectionArgs = { "%" + playerName + "%", "%" + playerLname + "%" };
