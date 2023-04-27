@@ -10,13 +10,14 @@ import android.widget.Toast;
 import com.example.prodon.MainActivity;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "proDon.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "proDonn.db";
+    private static final int DATABASE_VERSION = 2;
 
     // Table and column names
     private static final String TABLE_PLAYERS = "Players";
@@ -95,6 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_FIRST_NAME, player.getfName());
         cv.put(COLUMN_LAST_NAME, player.getlName());
+        cv.put(COLUMN_PARENT_NAME,player.getParentName());
         cv.put(COLUMN_DATE_OF_BIRTH, player.getYear());
         cv.put(COLUMN_PLAYER_PHONE_NUMBER,player.getPlayerPhone());
         cv.put(COLUMN_PARENT_PHONE_NUMBER,player.getParentPhone());
@@ -109,12 +111,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         else return true;
     }
-    public void searchPlayer(String playerName,Context context) {
+    public ArrayList<PlayerModel> searchPlayer(String playerName, String playerLname, Context context) {
+        ArrayList<PlayerModel> players= new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = { COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PARENT_NAME, COLUMN_DATE_OF_BIRTH, COLUMN_PARENT_PHONE_NUMBER, COLUMN_PLAYER_PHONE_NUMBER, COLUMN_DATE_JOINED, COLUMN_STATUS, COLUMN_STATUS_SINCE, COLUMN_GROUP_ID };
 
-        String selection = COLUMN_FIRST_NAME + " LIKE ? OR " + COLUMN_LAST_NAME + " LIKE ?";
-        String[] selectionArgs = { "%" + playerName + "%", "%" + playerName + "%" };
+        String selection = COLUMN_FIRST_NAME + " LIKE ? AND " + COLUMN_LAST_NAME + " LIKE ?";
+        String[] selectionArgs = { "%" + playerName + "%", "%" + playerLname + "%" };
 
         Cursor cursor = db.query(
                 TABLE_PLAYERS,     // The table to query
@@ -125,40 +128,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,              // Don't filter by row groups
                 null               // The sort order
         );
-
+        PlayerModel playerModel;
         if (cursor.moveToFirst()) {
-            String firstName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FIRST_NAME));
-            String lastName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LAST_NAME));
-            String parentName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PARENT_NAME));
-            String dateOfBirth = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE_OF_BIRTH));
-            String parentPhoneNumber = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PARENT_PHONE_NUMBER));
-            String playerPhoneNumber = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PLAYER_PHONE_NUMBER));
-            String dateJoined = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE_JOINED));
-            String status = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_STATUS));
-            String statusSince = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_STATUS_SINCE));
-            int groupId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_GROUP_ID));
-
-            // Construct a string with the player's details
-            StringBuilder builder = new StringBuilder();
-            builder.append("Name: ").append(firstName).append(" ").append(lastName).append("\n");
-            builder.append("Parent Name: ").append(parentName).append("\n");
-            builder.append("Date of Birth: ").append(dateOfBirth).append("\n");
-            builder.append("Parent Phone Number: ").append(parentPhoneNumber).append("\n");
-            builder.append("Player Phone Number: ").append(playerPhoneNumber).append("\n");
-            builder.append("Date Joined: ").append(dateJoined).append("\n");
-            builder.append("Status: ").append(status).append("\n");
-            builder.append("Status Since: ").append(statusSince).append("\n");
-            builder.append("Group ID: ").append(groupId);
-
-            // Display a toast with the player's details
-
-            CharSequence text = builder.toString();
-            int duration = Toast.LENGTH_LONG;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
+                String fName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FIRST_NAME));
+                String lName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LAST_NAME));
+                String parentName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PARENT_NAME));
+                String parentPhone = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PARENT_PHONE_NUMBER));
+                String playerPhone = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PLAYER_PHONE_NUMBER));
+                String dateJoined = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE_JOINED));
+                int year = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_DATE_OF_BIRTH));
+                playerModel = new PlayerModel(id, fName, lName, parentName, parentPhone, playerPhone, dateJoined, year);
+                players.add(playerModel);
+            } while (cursor.moveToNext());
         }
-
         cursor.close();
+        return players;
     }
 
     }

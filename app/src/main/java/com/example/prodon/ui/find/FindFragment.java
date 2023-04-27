@@ -36,8 +36,12 @@ public class FindFragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String first,last;
+                first = last = "";
+                if (fName.getText() != null)first = fName.getText().toString();
+                if (lName.getText() != null)last = lName.getText().toString();
                 DatabaseHelper databaseHelper = new DatabaseHelper(v.getContext());
-                databaseHelper.searchPlayer("geo",v.getContext());
+                databaseHelper.searchPlayer(first,last,v.getContext());
             }
         });
         return v;
