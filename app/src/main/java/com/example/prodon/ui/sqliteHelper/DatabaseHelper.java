@@ -183,6 +183,92 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+
+    public PlayerModel getPlayerById(int playerId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                COLUMN_ID,
+                COLUMN_FIRST_NAME,
+                COLUMN_PARENT_NAME,
+                COLUMN_LAST_NAME,
+                COLUMN_DATE_OF_BIRTH,
+                COLUMN_PARENT_PHONE_NUMBER,
+                COLUMN_PLAYER_PHONE_NUMBER,
+                COLUMN_DATE_JOINED,
+                COLUMN_STATUS,
+                COLUMN_STATUS_SINCE,
+                COLUMN_GROUP_ID
+        };
+
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(playerId) };
+
+        Cursor cursor = db.query(
+                TABLE_PLAYERS,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        PlayerModel player = null;
+        if (cursor.moveToFirst()) {
+            player = new PlayerModel(playerId,
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FIRST_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LAST_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PARENT_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PARENT_PHONE_NUMBER)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PLAYER_PHONE_NUMBER)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE_JOINED)),
+                    Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE_OF_BIRTH)).substring(0, 4)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_STATUS)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_STATUS_SINCE)),
+                    getGroupNameById(Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GROUP_ID))))
+            );
+
+        }
+
+        cursor.close();
+        db.close();
+
+        return player;
+    }
+
+    public String getGroupNameById(int groupId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                COLUMN_GROUP_NAME
+        };
+
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(groupId) };
+
+        Cursor cursor = db.query(
+                TABLE_GROUPS,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        String groupName = null;
+        if (cursor.moveToFirst()) {
+            groupName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GROUP_NAME));
+        }
+
+        cursor.close();
+        db.close();
+
+        return groupName;
+    }
+
     }
 
 
