@@ -1,9 +1,12 @@
 package com.example.prodon.ui.sqliteHelper;
 
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +21,11 @@ import java.util.ArrayList;
 public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecyclerAdapter.ViewHolder> {
 
     private ArrayList<PlayerModel> players;
+    private LayoutInflater inflater;
 
-
-    public PlayersRecyclerAdapter(ArrayList<PlayerModel> players) {
+    public PlayersRecyclerAdapter(ArrayList<PlayerModel> players,LayoutInflater inflater) {
         this.players = players;
+        this.inflater = inflater;
     }
 
 
@@ -48,6 +52,39 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
         holder.txtYear.setText(c);
         holder.txtName.setText(a);
         int s = players.get(position).getId();
+        holder.payBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Details about the drive");
+
+                // set the custom layout
+                final View customLayout =inflater.inflate(R.layout.dialogpayment, null);
+                builder.setView(customLayout);
+                AlertDialog dialog = builder.create();
+                Button closeBtn = customLayout.findViewById(R.id.closeBtn);
+                Button submitBtn = customLayout.findViewById(R.id.submitBtn);
+                NumberPicker numberPicker = customLayout.findViewById(R.id.numberPicker);
+                EditText value = customLayout.findViewById(R.id.editValue);
+                EditText year = customLayout.findViewById(R.id.editYear);
+                closeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                submitBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                numberPicker.setMinValue(1);
+                numberPicker.setMaxValue(12);
+                dialog.show();
+
+            }
+        });
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +110,7 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
     public class ViewHolder extends RecyclerView.ViewHolder { //view holder to set the txt views and listeners
         private TextView txtParent, txtYear, txtName;
         private CardView v;
-        private Button btn, startBtn;
+        private Button statusBtn, payBtn;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -82,8 +119,8 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
             txtParent = itemView.findViewById(R.id.txtParentName);
             txtYear = itemView.findViewById(R.id.txtYear);
             txtName = itemView.findViewById(R.id.txtPlayerName);
-            btn = itemView.findViewById(R.id.btnStatus);
-            startBtn = itemView.findViewById(R.id.btnPay);
+            statusBtn = itemView.findViewById(R.id.btnStatus);
+            payBtn = itemView.findViewById(R.id.btnPay);
             v= itemView.findViewById(R.id.parent);
 
         }
