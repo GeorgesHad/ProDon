@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.prodon.MainActivity;
 
+import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -165,6 +166,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return players;
+    }
+
+    public void addNewPayment(int playerId, int year, int month, double amount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PLAYER_ID, playerId);
+        values.put(COLUMN_YEAR, year);
+        values.put(COLUMN_MONTH, month);
+        values.put(COLUMN_AMOUNT, amount);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDate = dateFormat.format(calendar.getTime());
+        values.put(COLUMN_PAYMENT_DATE, currentDate);
+        db.insert(TABLE_PAYMENTS, null, values);
+        db.close();
     }
 
     }

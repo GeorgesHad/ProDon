@@ -30,6 +30,7 @@ public class FindFragment extends Fragment {
     private TextView txtEmpty;
     private Button searchBtn;
     private RecyclerView rec;
+    private DatabaseHelper databaseHelper;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class FindFragment extends Fragment {
         lName = v.findViewById(R.id.searchLName);
         txtEmpty = v.findViewById(R.id.txtEmpty);
         searchBtn = v.findViewById(R.id.button2);
+        databaseHelper = new DatabaseHelper(v.getContext());
         rec = v.findViewById(R.id.recycler);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,11 +48,10 @@ public class FindFragment extends Fragment {
                 first = last = "";
                 if (fName.getText() != null)first = fName.getText().toString();
                 if (lName.getText() != null)last = lName.getText().toString();
-                DatabaseHelper databaseHelper = new DatabaseHelper(v.getContext());
                 ArrayList<PlayerModel> ar = databaseHelper.searchPlayer(first,last,v.getContext());
                 if (ar.isEmpty()){  Toast.makeText(v.getContext(),"No players match your search.",Toast.LENGTH_SHORT).show();}
 
-                PlayersRecyclerAdapter adapter = new PlayersRecyclerAdapter(ar,getLayoutInflater());
+                PlayersRecyclerAdapter adapter = new PlayersRecyclerAdapter(ar,getLayoutInflater(), databaseHelper);
                 rec.setAdapter(adapter);
                 rec.setLayoutManager(new LinearLayoutManager(v.getContext()));
                 rec.setVisibility(View.VISIBLE);

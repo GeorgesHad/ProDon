@@ -22,10 +22,12 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
 
     private ArrayList<PlayerModel> players;
     private LayoutInflater inflater;
+    private DatabaseHelper db;
 
-    public PlayersRecyclerAdapter(ArrayList<PlayerModel> players,LayoutInflater inflater) {
+    public PlayersRecyclerAdapter(ArrayList<PlayerModel> players,LayoutInflater inflater,DatabaseHelper db) {
         this.players = players;
         this.inflater = inflater;
+        this.db = db;
     }
 
 
@@ -76,7 +78,10 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
                 submitBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        int val = Integer.parseInt(value.getText().toString());
+                        int y =  Integer.parseInt(year.getText().toString());
+                        int m = numberPicker.getValue();
+                    db.addNewPayment(s,y,m,val);
                     }
                 });
                 numberPicker.setMinValue(1);
