@@ -48,10 +48,8 @@ public class FindFragment extends Fragment {
                 if (lName.getText() != null)last = lName.getText().toString();
                 DatabaseHelper databaseHelper = new DatabaseHelper(v.getContext());
                 ArrayList<PlayerModel> ar = databaseHelper.searchPlayer(first,last,v.getContext());
-                if (ar.isEmpty()){  Toast.makeText(v.getContext(),"No players match your search.",Toast.LENGTH_LONG).show();}
-                else {
-                    Toast.makeText(v.getContext(),ar.get(0).getfName(),Toast.LENGTH_LONG).show();
-                }
+                if (ar.isEmpty()){  Toast.makeText(v.getContext(),"No players match your search.",Toast.LENGTH_SHORT).show();}
+
                 PlayersRecyclerAdapter adapter = new PlayersRecyclerAdapter(ar);
                 rec.setAdapter(adapter);
                 rec.setLayoutManager(new LinearLayoutManager(v.getContext()));
