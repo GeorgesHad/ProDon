@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 public class PlayerModel {
     private String fName,lName,parentName,parentPhone,playerPhone,dateJoined;
     private int year,id;
-
+    private  String status,statusSince,groupName;
     public PlayerModel(int id,String fName, String lName, String parentName, @Nullable String parentPhone, @Nullable String playerPhone, String dateJoined, int year) {
         this.fName = fName;
         this.lName = lName;
@@ -16,7 +16,21 @@ public class PlayerModel {
         this.year = year;
         this.id = id;
     }
-    public PlayerModel(String fName, String lName, String parentName, @Nullable String parentPhone,@Nullable String playerPhone, int year) {
+
+    public PlayerModel(int id,String fName, String lName, String parentName, String parentPhone, String playerPhone, String dateJoined, int year, String status, String statusSince, String groupName) {
+        this.fName = fName;
+        this.lName = lName;
+        this.parentName = parentName;
+        this.parentPhone = parentPhone;
+        this.playerPhone = playerPhone;
+        this.dateJoined = dateJoined;
+        this.year = year;
+        this.status = status;
+        this.statusSince = statusSince;
+        this.groupName = groupName;
+    }
+
+    public PlayerModel(String fName, String lName, String parentName, @Nullable String parentPhone, @Nullable String playerPhone, int year) {
         this.fName = fName;
         this.lName = lName;
         this.parentName = parentName;
@@ -86,5 +100,29 @@ public class PlayerModel {
 
     public void setDateJoined(String dateJoined) {
         this.dateJoined = dateJoined;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatusSince() {
+        return statusSince;
+    }
+
+    public void setStatusSince(String statusSince) {
+        this.statusSince = statusSince;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }
