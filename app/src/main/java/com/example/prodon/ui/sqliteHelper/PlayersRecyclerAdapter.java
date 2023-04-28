@@ -1,6 +1,7 @@
 package com.example.prodon.ui.sqliteHelper;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prodon.R;
+import com.example.prodon.ui.find.PlayerDetails;
 
 import java.util.ArrayList;
 
@@ -23,11 +26,13 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
     private ArrayList<PlayerModel> players;
     private LayoutInflater inflater;
     private DatabaseHelper db;
+    private FragmentActivity i;
 
-    public PlayersRecyclerAdapter(ArrayList<PlayerModel> players,LayoutInflater inflater,DatabaseHelper db) {
+    public PlayersRecyclerAdapter(ArrayList<PlayerModel> players,LayoutInflater inflater,DatabaseHelper db,FragmentActivity i) {
         this.players = players;
         this.inflater = inflater;
         this.db = db;
+        this.i = i;
     }
 
 
@@ -93,7 +98,9 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Id is: " + s,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(i, PlayerDetails.class);
+                intent.putExtra("player",db.getPlayerById(s));
+                i.startActivity(intent);
             }
         });
     }

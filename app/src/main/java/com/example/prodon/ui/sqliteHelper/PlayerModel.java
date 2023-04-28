@@ -2,7 +2,9 @@ package com.example.prodon.ui.sqliteHelper;
 
 import androidx.annotation.Nullable;
 
-public class PlayerModel {
+import java.io.Serializable;
+
+public class PlayerModel implements Serializable {
     private String fName,lName,parentName,parentPhone,playerPhone,dateJoined;
     private int year,id;
     private  String status,statusSince,groupName;

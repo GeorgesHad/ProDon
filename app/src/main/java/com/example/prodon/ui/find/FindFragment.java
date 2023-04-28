@@ -51,7 +51,7 @@ public class FindFragment extends Fragment {
                 ArrayList<PlayerModel> ar = databaseHelper.searchPlayer(first,last,v.getContext());
                 if (ar.isEmpty()){  Toast.makeText(v.getContext(),"No players match your search.",Toast.LENGTH_SHORT).show();}
 
-                PlayersRecyclerAdapter adapter = new PlayersRecyclerAdapter(ar,getLayoutInflater(), databaseHelper);
+                PlayersRecyclerAdapter adapter = new PlayersRecyclerAdapter(ar,getLayoutInflater(), databaseHelper,getActivity());
                 rec.setAdapter(adapter);
                 rec.setLayoutManager(new LinearLayoutManager(v.getContext()));
                 rec.setVisibility(View.VISIBLE);
