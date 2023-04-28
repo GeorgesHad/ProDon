@@ -38,6 +38,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_COACHES = "Coaches";
     private static final String COLUMN_COACH_FIRST_NAME = "first_name";
     private static final String COLUMN_COACH_LAST_NAME = "last_name";
+    private static final String TABLE_PAYMENTS = "Payments";
+    private static final String COLUMN_PAYMENT_ID = "payment_id";
+    private static final String COLUMN_PLAYER_ID = "player_id";
+    private static final String COLUMN_YEAR = "year";
+    private static final String COLUMN_MONTH = "month";
+    private static final String COLUMN_AMOUNT = "amount";
+    private static final String COLUMN_PAYMENT_DATE = "payment_date";
+
 
     // SQL statements to create the tables
     private static final String SQL_CREATE_PLAYERS =
@@ -70,6 +78,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_COACH_FIRST_NAME + " TEXT," +
                     COLUMN_COACH_LAST_NAME + " TEXT" +
                     ");";
+    private static final String SQL_CREATE_PAYMENTS =
+            "CREATE TABLE " + TABLE_PAYMENTS + " (" +
+                    COLUMN_PAYMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    COLUMN_PLAYER_ID + " INTEGER," +
+                    COLUMN_YEAR + " INTEGER," +
+                    COLUMN_MONTH + " INTEGER," +
+                    COLUMN_AMOUNT + " REAL," +
+                    COLUMN_PAYMENT_DATE + " TEXT," +
+                    "FOREIGN KEY (" + COLUMN_PLAYER_ID + ") REFERENCES " + TABLE_PLAYERS + "(" + COLUMN_ID + ")," +
+                    "FOREIGN KEY (" + COLUMN_COACH_ID + ") REFERENCES " + TABLE_COACHES + "(" + COLUMN_ID + ")" +
+                    ");";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -80,6 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_COACHES);
         db.execSQL(SQL_CREATE_GROUPS);
         db.execSQL(SQL_CREATE_PLAYERS);
+        db.execSQL(SQL_CREATE_PAYMENTS);
     }
 
     @Override
