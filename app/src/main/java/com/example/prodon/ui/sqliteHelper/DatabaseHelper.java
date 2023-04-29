@@ -267,6 +267,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return groupName;
     }
+    public void updatePlayerDetails(String id, String firstName, String lastName, String parentName, String parentPhone, String playerPhone, String dateJoined, int year, String status, String statusSince, String groupName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FIRST_NAME, firstName);
+        values.put(COLUMN_LAST_NAME, lastName);
+        values.put(COLUMN_PARENT_NAME, parentName);
+        values.put(COLUMN_PARENT_PHONE_NUMBER, parentPhone);
+        values.put(COLUMN_PLAYER_PHONE_NUMBER, playerPhone);
+        values.put(COLUMN_DATE_JOINED, dateJoined);
+        values.put(COLUMN_YEAR, year);
+        values.put(COLUMN_STATUS, status);
+        values.put(COLUMN_STATUS_SINCE, statusSince);
+        values.put(COLUMN_GROUP_NAME, groupName);
+        db.update(TABLE_PLAYERS, values, COLUMN_ID + " = ?", new String[]{id});
+        db.close();
+    }
 
     }
 
