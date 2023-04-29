@@ -60,8 +60,8 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
 
         a = "Player Name: " + players.get(position).getfName() +" "+players.get(position).getlName();
 
-        b = "Parent Name: " + players.get(position).getParentName()+" "+players.get(position).getlName();
-
+       if (!players.get(position).getParentName().equals("")){b = "Parent Name: " + players.get(position).getParentName()+" "+players.get(position).getlName();}
+        else b= "Parent Name: Not specified.";
         c = "Year: " + players.get(position).getYear();
 
         holder.txtParent.setText(b);
