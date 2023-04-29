@@ -33,6 +33,10 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 PlayerModel playerModel = null;
+                if(fName.getText().toString().equals("") || lName.getText().toString().equals("")) {Toast.makeText(v.getContext(),"First and last names are required.",Toast.LENGTH_SHORT).show();return;}
+                else if(parentPhone.getText().toString().equals("") || playerPhone.getText().toString().equals("")){Toast.makeText(v.getContext(),"At least one phone number is required.",Toast.LENGTH_SHORT).show();return;}
+                else if(year.getText().toString().equals("")){Toast.makeText(v.getContext(),"Birth Year is required.",Toast.LENGTH_SHORT).show();return;}
+
                 try {
                      playerModel = new PlayerModel(fName.getText().toString(),lName.getText().toString(),parentName.getText().toString(),
                             parentPhone.getText().toString(),playerPhone.getText().toString(),Integer.parseInt(year.getText().toString()));
@@ -44,7 +48,8 @@ public class AddFragment extends Fragment {
 
                 DatabaseHelper databaseHelper = new DatabaseHelper(v.getContext());
                 Boolean success = databaseHelper.addPlayer(playerModel);
-                Toast.makeText(v.getContext(),"success:" + success,Toast.LENGTH_SHORT).show();
+                if (success)Toast.makeText(v.getContext(),"Player added successfully.",Toast.LENGTH_SHORT).show();
+                else Toast.makeText(v.getContext(),"Error adding player.",Toast.LENGTH_SHORT).show();
             }
         });
         return v;
