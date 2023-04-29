@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="600dp"
     android:layout_gravity="center"
     android:elevation="50dp"
     app:cardBackgroundColor="@color/light_gray"
@@ -75,11 +75,11 @@
         android:id="@+id/submitBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="152dp"
         android:backgroundTint="@color/black"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/txtValue"
         app:layout_constraintTop_toBottomOf="@+id/editValue" />
 
@@ -99,19 +99,87 @@
 
     <EditText
         android:id="@+id/editValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="115dp"
+        android:layout_height="49dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="number"
         android:hint="Value in $"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/editYear"
-        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/editYear"
-        app:layout_constraintVertical_bias="0.081" />
+        app:layout_constraintVertical_bias="0.0" />
 
+
+    <CheckBox
+        android:id="@+id/parentCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/parent_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintStart_toStartOf="@+id/playerCheck"
+        app:layout_constraintTop_toBottomOf="@+id/editValue" />
+
+    <CheckBox
+        android:id="@+id/playerCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/player_phone"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/numberPicker"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editValue" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:text="@string/player_phone"
+        app:layout_constraintBottom_toTopOf="@+id/playerCheck"
+        app:layout_constraintEnd_toEndOf="@+id/playerCheck"
+        app:layout_constraintStart_toStartOf="@+id/playerCheck" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:text="@string/parent_phone"
+        app:layout_constraintBottom_toTopOf="@+id/parentCheck"
+        app:layout_constraintEnd_toEndOf="@+id/parentCheck"
+        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintStart_toStartOf="@+id/parentCheck" />
+
+    <EditText
+        android:id="@+id/otherPhone"
+        android:layout_width="110dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Other number"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/closeBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerCheck" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Other:"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/otherPhone"
+        app:layout_constraintEnd_toStartOf="@+id/otherPhone"
+        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/otherPhone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
