@@ -17,8 +17,8 @@ import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "proDonn.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "proDonData.db";
+    private static final int DATABASE_VERSION = 1;
 
     // Table and column names
     private static final String TABLE_PLAYERS = "Players";
@@ -87,8 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_MONTH + " INTEGER," +
                     COLUMN_AMOUNT + " REAL," +
                     COLUMN_PAYMENT_DATE + " TEXT," +
-                    "FOREIGN KEY (" + COLUMN_PLAYER_ID + ") REFERENCES " + TABLE_PLAYERS + "(" + COLUMN_ID + ")," +
-                    "FOREIGN KEY (" + COLUMN_COACH_ID + ") REFERENCES " + TABLE_COACHES + "(" + COLUMN_ID + ")" +
+                    "FOREIGN KEY (" + COLUMN_PLAYER_ID + ") REFERENCES " + TABLE_PLAYERS + "(" + COLUMN_ID + ")" +
                     ");";
 
     public DatabaseHelper(Context context) {
