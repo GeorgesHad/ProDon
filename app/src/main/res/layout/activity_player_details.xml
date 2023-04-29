@@ -1,9 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.find.PlayerDetails">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtPlaName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/custom_input"
+            android:focusable="false"
+            android:padding="10dp"
+            android:text="Name:"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/txtParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:focusable="false"
+            android:padding="10dp"
+            android:text="@string/parent_name"
+            app:layout_constraintBottom_toBottomOf="@+id/txtPlaName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/txtPlaName" />
+
+        <EditText
+            android:id="@+id/phonePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/custom_input"
+            android:focusable="false"
+            android:padding="10dp"
+            android:inputType="phone"
+            android:text="@string/player_phone"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPlaName" />
+
+        <EditText
+            android:id="@+id/phoneParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:focusable="false"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:text="@string/parent_phone"
+            app:layout_constraintBottom_toBottomOf="@+id/phonePlayer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <EditText
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:focusable="false"
+
+            android:padding="10dp"
+            android:text="Start Date:"
+            app:layout_constraintBottom_toBottomOf="@+id/groupName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/groupName" />
+
+        <EditText
+            android:id="@+id/birthYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/custom_input"
+            android:focusable="false"
+            android:inputType="number"
+            android:padding="10dp"
+            android:text="Birth Year:"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phonePlayer" />
+
+        <EditText
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/custom_input"
+            android:focusable="false"
+            android:padding="10dp"
+            android:text="Status:"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/birthYear" />
+
+        <EditText
+            android:id="@+id/statusSince"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/custom_input"
+            android:focusable="false"
+            android:padding="10dp"
+            android:text="Status Since:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/btnEdit" />
+
+        <EditText
+            android:id="@+id/groupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+
+            android:background="@drawable/custom_input"
+            android:focusable="false"
+            android:padding="10dp"
+            android:text="Group"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/status" />
+
+        <TextView
+
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            app:layout_constraintBottom_toTopOf="@+id/txtPlaName"
+            app:layout_constraintEnd_toEndOf="@+id/txtPlaName"
+            app:layout_constraintStart_toStartOf="@+id/txtPlaName" />
+
+        <TextView
+
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_name"
+            app:layout_constraintBottom_toTopOf="@+id/txtParent"
+            app:layout_constraintEnd_toEndOf="@+id/txtParent"
+            app:layout_constraintStart_toStartOf="@+id/txtParent" />
+
+        <TextView
+
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/player_phone"
+            app:layout_constraintBottom_toTopOf="@+id/phonePlayer"
+            app:layout_constraintEnd_toEndOf="@+id/phonePlayer"
+            app:layout_constraintStart_toStartOf="@+id/phonePlayer" />
+
+        <TextView
+
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_phone"
+            app:layout_constraintBottom_toTopOf="@+id/phoneParent"
+            app:layout_constraintEnd_toEndOf="@+id/phoneParent"
+            app:layout_constraintStart_toStartOf="@+id/phoneParent" />
+
+        <TextView
+
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Date:"
+            app:layout_constraintBottom_toTopOf="@+id/startDate"
+            app:layout_constraintEnd_toEndOf="@+id/startDate"
+            app:layout_constraintStart_toStartOf="@+id/startDate" />
+
+        <TextView
+
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Birth Year:"
+            app:layout_constraintBottom_toTopOf="@+id/birthYear"
+            app:layout_constraintEnd_toEndOf="@+id/birthYear"
+            app:layout_constraintStart_toStartOf="@+id/birthYear" />
+
+        <TextView
+
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status:"
+            app:layout_constraintBottom_toTopOf="@+id/status"
+            app:layout_constraintEnd_toEndOf="@+id/status"
+            app:layout_constraintStart_toStartOf="@+id/status" />
+
+        <TextView
+
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status Since:"
+            app:layout_constraintBottom_toTopOf="@+id/statusSince"
+            app:layout_constraintEnd_toEndOf="@+id/statusSince"
+            app:layout_constraintStart_toStartOf="@+id/statusSince" />
+
+        <TextView
+
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Group"
+            app:layout_constraintBottom_toTopOf="@+id/groupName"
+            app:layout_constraintEnd_toEndOf="@+id/groupName"
+            app:layout_constraintStart_toStartOf="@+id/groupName" />
+
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Previous Payments"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/groupName" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:drawableEnd="@drawable/ic_baseline_edit_24"
+            android:text="Edit"
+            app:layout_constraintBottom_toBottomOf="@+id/birthYear"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+        <EditText
+            android:id="@+id/searchYear"
+            android:layout_width="80dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="year"
+            android:inputType="number"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <NumberPicker
+            android:id="@+id/searchMonth"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/searchYear"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/searchYear" />
+
+        <Button
+            android:id="@+id/searchBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/black"
+            android:drawableEnd="@drawable/ic_baseline_search_white"
+            android:text="Search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchYear" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:text="Year"
+            app:layout_constraintBottom_toTopOf="@+id/searchYear"
+            app:layout_constraintEnd_toEndOf="@+id/searchYear"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="@+id/searchYear" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/searchMonth"
+            app:layout_constraintEnd_toEndOf="@+id/searchMonth"
+            app:layout_constraintStart_toStartOf="@+id/searchMonth" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
