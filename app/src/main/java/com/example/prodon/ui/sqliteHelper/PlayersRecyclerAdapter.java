@@ -139,13 +139,13 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
                         int val,y,m;
                        if (!value.getText().toString().equals("") && !year.getText().toString().equals("")){ val = Integer.parseInt(value.getText().toString());  y =  Integer.parseInt(year.getText().toString());m = numberPicker.getValue();}
                        else {Toast.makeText(i.getBaseContext(), "Please input all required values.", Toast.LENGTH_SHORT).show(); return;}
-                    db.addNewPayment(s,y,m,val);
+
                         String mobileNumber;
                         if (parentCheck.isChecked()){mobileNumber = parentCheck.getText().toString();}
                         else if (playerCheck.isChecked()){mobileNumber=playerCheck.getText().toString();}
                         else if(phone.getText()!=null) mobileNumber = phone.getText().toString();
                         else {Toast.makeText(i.getBaseContext(), "Please select a phone number.", Toast.LENGTH_SHORT).show(); return;}
-
+                        db.addNewPayment(s,y,m,val);
                         String message = "Player Name: "+players.get(holder.getAdapterPosition()).getfName()+" "+players.get(holder.getAdapterPosition()).getlName()  +"\nPayment made for: "+m+"-"+y + "Value: "+val;
                         boolean installed = true;//appInstalledOrNot("com.whatsapp");
                         if (installed) {
@@ -168,6 +168,7 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
             public void onClick(View v) {
                 Intent intent = new Intent(i, PlayerDetails.class);
                 intent.putExtra("player",db.getPlayerById(s));
+                intent.putExtra("id",s);
                 i.startActivity(intent);
             }
         });

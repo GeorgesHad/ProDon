@@ -306,7 +306,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="TextView"
+            android:text="Month"
             app:layout_constraintBottom_toTopOf="@+id/searchMonth"
             app:layout_constraintEnd_toEndOf="@+id/searchMonth"
             app:layout_constraintStart_toStartOf="@+id/searchMonth" />

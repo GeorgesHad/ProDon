@@ -7,26 +7,34 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.prodon.R;
 import com.example.prodon.ui.sqliteHelper.DatabaseHelper;
+import com.example.prodon.ui.sqliteHelper.Payment;
 import com.example.prodon.ui.sqliteHelper.PlayerModel;
+
+import java.util.ArrayList;
 
 public class PlayerDetails extends AppCompatActivity {
     private Intent i;
     private PlayerModel playerModel;
-    private EditText playerName,parentName,playerPhone,parentPhone,startDate,birthYear,status,statusSince,groupName;
+    private EditText playerName,parentName,playerPhone,parentPhone,startDate,birthYear,status,statusSince,groupName,yearSearch;
+    private NumberPicker month;
     private Button edit,search;
     private DatabaseHelper databaseHelper;
     private boolean editing;
+    private int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_details);
         i = this.getIntent();
         playerModel = (PlayerModel) i.getSerializableExtra("player");
+        id = i.getIntExtra("id",0);
         databaseHelper = new DatabaseHelper(this);
+
         editing = false;
         playerName = findViewById(R.id.txtPlaName);
         String s =playerModel.getfName()+" "+playerModel.getlName();
@@ -59,6 +67,24 @@ public class PlayerDetails extends AppCompatActivity {
         s = playerModel.getGroupName();
         groupName.setText(s);
         edit = findViewById(R.id.btnEdit);
+        search = findViewById(R.id.searchBtn);
+        month = findViewById(R.id.searchMonth);
+        month.setMinValue(0);
+        month.setMaxValue(12);
+        yearSearch = findViewById(R.id.searchYear);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Payment> ar = new ArrayList<>();
+                String s = yearSearch.getText().toString();
+                int n = month.getValue();
+                if (n == 0 && s.equals(""))ar = databaseHelper.getPaymentsByPlayerId(id,v);
+                else if(n==0) ar=databaseHelper.searchPaymentsByYearAndPlayerId(Integer.parseInt(s),playerModel.getId());
+                else ar=databaseHelper.searchPaymentsByYearMonthAndPlayerId(Integer.parseInt(s),n,playerModel.getId());
+               if(ar.isEmpty()) Toast.makeText(v.getContext(), "No results match your search.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), ""+ar.size(), Toast.LENGTH_SHORT).show();
+            }
+        });
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

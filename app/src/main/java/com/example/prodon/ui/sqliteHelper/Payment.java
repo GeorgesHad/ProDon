@@ -4,14 +4,22 @@ public class Payment {
     private int playerId;
     private int year;
     private int month;
-    private int amount;
+    private double amount;
+    private String date;
 
-    public Payment(int id, int playerId, int year, int month, int amount) {
-        this.id = id;
-        this.playerId = playerId;
+    public Payment(int year, int month, double amount,String date) {
         this.year = year;
         this.month = month;
         this.amount = amount;
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getId() {
@@ -46,11 +54,11 @@ public class Payment {
         this.month = month;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 }
