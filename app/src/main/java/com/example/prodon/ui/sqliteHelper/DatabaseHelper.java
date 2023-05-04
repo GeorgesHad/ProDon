@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.prodon.MainActivity;
@@ -14,6 +15,7 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -106,38 +108,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Not implemented in this example
     }
+
     public boolean addPlayer(PlayerModel player) {
         SQLiteDatabase db = getWritableDatabase();
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String date = day + "-"+ month +"-"+ year;
+        String date = day + "-" + month + "-" + year;
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_FIRST_NAME, player.getfName());
         cv.put(COLUMN_LAST_NAME, player.getlName());
-        cv.put(COLUMN_PARENT_NAME,player.getParentName());
+        cv.put(COLUMN_PARENT_NAME, player.getParentName());
         cv.put(COLUMN_DATE_OF_BIRTH, player.getYear());
-        cv.put(COLUMN_PLAYER_PHONE_NUMBER,player.getPlayerPhone());
-        cv.put(COLUMN_PARENT_PHONE_NUMBER,player.getParentPhone());
-        cv.put(COLUMN_DATE_JOINED,date);
-        cv.put(COLUMN_STATUS,"Active");
-        cv.put(COLUMN_STATUS_SINCE,date);
-        cv.put(COLUMN_GROUP_ID,0);
-        long insert = db.insert(TABLE_PLAYERS,null,cv);
-        if (insert == -1)
-        {
+        cv.put(COLUMN_PLAYER_PHONE_NUMBER, player.getPlayerPhone());
+        cv.put(COLUMN_PARENT_PHONE_NUMBER, player.getParentPhone());
+        cv.put(COLUMN_DATE_JOINED, date);
+        cv.put(COLUMN_STATUS, "Active");
+        cv.put(COLUMN_STATUS_SINCE, date);
+        cv.put(COLUMN_GROUP_ID, 0);
+        long insert = db.insert(TABLE_PLAYERS, null, cv);
+        if (insert == -1) {
             return false;
-        }
-        else return true;
+        } else return true;
     }
+
     public ArrayList<PlayerModel> searchPlayer(String playerName, String playerLname, Context context) {
-        ArrayList<PlayerModel> players= new ArrayList<>();
+        ArrayList<PlayerModel> players = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] projection = { COLUMN_ID,COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PARENT_NAME, COLUMN_DATE_OF_BIRTH, COLUMN_PARENT_PHONE_NUMBER, COLUMN_PLAYER_PHONE_NUMBER, COLUMN_DATE_JOINED, COLUMN_STATUS, COLUMN_STATUS_SINCE, COLUMN_GROUP_ID };
+        String[] projection = {COLUMN_ID, COLUMN_FIRST_NAME, COLUMN_LAST_NAME, COLUMN_PARENT_NAME, COLUMN_DATE_OF_BIRTH, COLUMN_PARENT_PHONE_NUMBER, COLUMN_PLAYER_PHONE_NUMBER, COLUMN_DATE_JOINED, COLUMN_STATUS, COLUMN_STATUS_SINCE, COLUMN_GROUP_ID};
 
         String selection = COLUMN_FIRST_NAME + " LIKE ? AND " + COLUMN_LAST_NAME + " LIKE ?";
-        String[] selectionArgs = { "%" + playerName + "%", "%" + playerLname + "%" };
+        String[] selectionArgs = {"%" + playerName + "%", "%" + playerLname + "%"};
 
         Cursor cursor = db.query(
                 TABLE_PLAYERS,     // The table to query
@@ -183,7 +185,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
     public PlayerModel getPlayerById(int playerId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -202,7 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         };
 
         String selection = COLUMN_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(playerId) };
+        String[] selectionArgs = {String.valueOf(playerId)};
 
         Cursor cursor = db.query(
                 TABLE_PLAYERS,
@@ -245,7 +246,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         };
 
         String selection = COLUMN_ID + " = ?";
-        String[] selectionArgs = { String.valueOf(groupId) };
+        String[] selectionArgs = {String.valueOf(groupId)};
 
         Cursor cursor = db.query(
                 TABLE_GROUPS,
@@ -267,6 +268,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return groupName;
     }
+
     public void updatePlayerDetails(String id, String firstName, String lastName, String parentName, String parentPhone, String playerPhone, String dateJoined, int year, String status, String statusSince, String groupName) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -284,7 +286,93 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayList<Payment> searchPaymentsByYearAndPlayerId(int year, int playerId) {
+        ArrayList<Payment> payments = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                COLUMN_YEAR, COLUMN_MONTH, COLUMN_AMOUNT, COLUMN_PAYMENT_DATE
+        };
+
+        String selection = COLUMN_YEAR + "=?";
+        String[] selectionArgs = {String.valueOf(year)};
+
+        Cursor cursor = db.query(
+                TABLE_PAYMENTS,
+                projection,
+                selection + " AND " + COLUMN_PLAYER_ID + "=?",
+                new String[]{String.valueOf(year), String.valueOf(playerId)},
+                null,
+                null,
+                null
+        );
+
+        while (cursor.moveToNext()) {
+            int y = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_YEAR));
+            int month = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_MONTH));
+            double amount = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_AMOUNT));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PAYMENT_DATE));
+            Payment payment = new Payment(y, month, amount, date);
+            payments.add(payment);
+        }
+
+        cursor.close();
+        return payments;
     }
 
+    public ArrayList<Payment> searchPaymentsByYearMonthAndPlayerId(int year, int month, int playerId) {
+        ArrayList<Payment> payments = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                COLUMN_YEAR, COLUMN_MONTH, COLUMN_AMOUNT, COLUMN_PAYMENT_DATE
+        };
+
+        String selection = COLUMN_YEAR + "=? AND " + COLUMN_MONTH + "=?";
+        String[] selectionArgs = {String.valueOf(year), String.valueOf(month)};
+
+        Cursor cursor = db.query(
+                TABLE_PAYMENTS,
+                projection,
+                selection + " AND " + COLUMN_PLAYER_ID + "=?",
+                new String[]{String.valueOf(year), String.valueOf(month), String.valueOf(playerId)},
+                null,
+                null,
+                null
+        );
+
+        while (cursor.moveToNext()) {
+            int y = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_YEAR));
+            int m = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_MONTH));
+            double amount = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_AMOUNT));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PAYMENT_DATE));
+            Payment payment = new Payment(y, m, amount, date);
+            payments.add(payment);
+        }
+
+        cursor.close();
+        return payments;
+    }
+
+    public ArrayList<Payment> getPaymentsByPlayerId(int playerId,View v) {
+        ArrayList<Payment> payments = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = {COLUMN_YEAR, COLUMN_MONTH, COLUMN_AMOUNT, COLUMN_PAYMENT_DATE};
+        String selection = COLUMN_PLAYER_ID + "=?";
+        String[] selectionArgs = {String.valueOf(playerId)};
+        Cursor cursor = db.query(TABLE_PAYMENTS, columns, selection, selectionArgs, null, null, null);
+        while (cursor.moveToNext()) {
+            int year = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_YEAR));
+            int month = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_MONTH));
+            double amount = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_AMOUNT));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PAYMENT_DATE));
+            Payment payment = new Payment(year, month, amount, date);
+            payments.add(payment);
+        }
+        cursor.close();
+        db.close();
+        return payments;
+    }
+}
 
 
