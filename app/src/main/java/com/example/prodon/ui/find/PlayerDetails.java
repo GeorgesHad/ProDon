@@ -29,34 +29,34 @@ public class PlayerDetails extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         editing = false;
         playerName = findViewById(R.id.txtPlaName);
-        String s ="Player Name: "+playerModel.getfName()+" "+playerModel.getlName();
+        String s =playerModel.getfName()+" "+playerModel.getlName();
         playerName.setText(s);
         parentName = findViewById(R.id.txtParent);
-        if(!playerModel.getParentName().equals("")){s  ="Parent Name:"+playerModel.getParentName()+" "+playerModel.getlName();}
-        else s ="Parent Name: Not specified.";
+        if(!playerModel.getParentName().equals("")){s  =playerModel.getParentName()+" "+playerModel.getlName();}
+        else s = "Not specified.";
         parentName.setText(s);
         playerPhone = findViewById(R.id.phonePlayer);
-        if(!playerModel.getPlayerPhone().equals("")){s  ="Player Phone: "+playerModel.getPlayerPhone();}
-        else s ="Player Phone: Not specified.";
+        if(!playerModel.getPlayerPhone().equals("")){s  =playerModel.getPlayerPhone();}
+        else s ="Not specified.";
         playerPhone.setText(s);
         parentPhone = findViewById(R.id.phoneParent);
-        if(!playerModel.getParentPhone().equals("")){s  ="Player Phone: "+playerModel.getParentPhone();}
-        else s ="Parent Phone: Not specified.";
+        if(!playerModel.getParentPhone().equals("")){s  =playerModel.getParentPhone();}
+        else s ="Not specified.";
         parentPhone.setText(s);
         startDate = findViewById(R.id.startDate);
-        s  ="Start Date: "+playerModel.getDateJoined();
+        s  =playerModel.getDateJoined();
         startDate.setText(s);
         birthYear = findViewById(R.id.birthYear);
-        s="Birth Year: "+playerModel.getYear();
+        s=""+playerModel.getYear();
         birthYear.setText(s);
         status=findViewById(R.id.status);
-        s ="Status: "+playerModel.getStatus();
+        s =playerModel.getStatus();
         status.setText(s);
         statusSince = findViewById(R.id.statusSince);
-        s = playerModel.getStatus() + " since: "+playerModel.getStatusSince();
+        s =playerModel.getStatusSince();
         statusSince.setText(s);
         groupName = findViewById(R.id.groupName);
-        s = "Group Name: "+ playerModel.getGroupName();
+        s = playerModel.getGroupName();
         groupName.setText(s);
         edit = findViewById(R.id.btnEdit);
         edit.setOnClickListener(new View.OnClickListener() {
@@ -64,14 +64,12 @@ public class PlayerDetails extends AppCompatActivity {
             public void onClick(View v) {
                 if (!editing)
                 {
+                    Toast.makeText(v.getContext(), "editing", Toast.LENGTH_SHORT).show();
                     editing = true;
-                    playerName.setFocusable(true);parentName.setFocusable(true);playerPhone.setFocusable(true);
-                    parentPhone.setFocusable(true);birthYear.setFocusable(true);
                 }
                 else {
                     editing = false;
-                    playerName.setFocusable(false);parentName.setFocusable(false);playerPhone.setFocusable(false);
-                    parentPhone.setFocusable(false);birthYear.setFocusable(false);
+                    Toast.makeText(v.getContext(), "! editing", Toast.LENGTH_SHORT).show();
                 }
             }
         });
