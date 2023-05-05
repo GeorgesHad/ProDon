@@ -1,7 +1,10 @@
 package com.example.prodon.ui.find;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import com.example.prodon.R;
 import com.example.prodon.ui.sqliteHelper.DatabaseHelper;
 import com.example.prodon.ui.sqliteHelper.Payment;
+import com.example.prodon.ui.sqliteHelper.PaymentsRecycler;
 import com.example.prodon.ui.sqliteHelper.PlayerModel;
 
 import java.util.ArrayList;
@@ -75,14 +79,34 @@ public class PlayerDetails extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Payment> ar = new ArrayList<>();
+                ArrayList<Payment> ar;
                 String s = yearSearch.getText().toString();
                 int n = month.getValue();
-                if (n == 0 && s.equals(""))ar = databaseHelper.getPaymentsByPlayerId(id,v);
-                else if(n==0) ar=databaseHelper.searchPaymentsByYearAndPlayerId(Integer.parseInt(s),playerModel.getId());
-                else ar=databaseHelper.searchPaymentsByYearMonthAndPlayerId(Integer.parseInt(s),n,playerModel.getId());
+                if (n == 0 && s.equals(""))ar = databaseHelper.getPaymentsByPlayerId(id);
+                else if(n==0) ar=databaseHelper.searchPaymentsByYearAndPlayerId(Integer.parseInt(s),id);
+                else ar=databaseHelper.searchPaymentsByYearMonthAndPlayerId(Integer.parseInt(s),n,id);
                if(ar.isEmpty()) Toast.makeText(v.getContext(), "No results match your search.", Toast.LENGTH_SHORT).show();
-                Toast.makeText(v.getContext(), ""+ar.size(), Toast.LENGTH_SHORT).show();
+               else {
+                   Toast.makeText(v.getContext(), ""+ar.size(), Toast.LENGTH_SHORT).show();
+                   AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                   builder.setTitle(playerModel.getfName()+" "+playerModel.getlName()+ " payments");
+                   final View customLayout =getLayoutInflater().inflate(R.layout.payment_search_results, null);
+                   builder.setView(customLayout);
+                   AlertDialog dialog = builder.create();
+                   RecyclerView rec = customLayout.findViewById(R.id.recyclerView);
+                   PaymentsRecycler adapter = new PaymentsRecycler(ar);
+                   rec.setAdapter(adapter);
+                   rec.setLayoutManager(new LinearLayoutManager(v.getContext()));
+                   Button btn = customLayout.findViewById(R.id.button3);
+                   btn.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           dialog.dismiss();
+                       }
+                   });
+                    dialog.show();
+               }
+
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {
