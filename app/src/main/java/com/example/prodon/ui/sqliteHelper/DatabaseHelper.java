@@ -294,14 +294,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_YEAR, COLUMN_MONTH, COLUMN_AMOUNT, COLUMN_PAYMENT_DATE
         };
 
-        String selection = COLUMN_YEAR + "=?";
-        String[] selectionArgs = {String.valueOf(year)};
+        String selection = COLUMN_YEAR + "=?"+ " AND " + COLUMN_PLAYER_ID + "=?";
+        String[] selectionArgs = {String.valueOf(year),String.valueOf(playerId)};
 
         Cursor cursor = db.query(
                 TABLE_PAYMENTS,
                 projection,
-                selection + " AND " + COLUMN_PLAYER_ID + "=?",
-                new String[]{String.valueOf(year), String.valueOf(playerId)},
+                selection ,
+                selectionArgs,
                 null,
                 null,
                 null
@@ -328,14 +328,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_YEAR, COLUMN_MONTH, COLUMN_AMOUNT, COLUMN_PAYMENT_DATE
         };
 
-        String selection = COLUMN_YEAR + "=? AND " + COLUMN_MONTH + "=?";
-        String[] selectionArgs = {String.valueOf(year), String.valueOf(month)};
+        String selection = COLUMN_YEAR + "=? AND " + COLUMN_MONTH + "=?"+ " AND " + COLUMN_PLAYER_ID + "=?";
+        String[] selectionArgs = {String.valueOf(year), String.valueOf(month),String.valueOf(playerId)};
 
         Cursor cursor = db.query(
                 TABLE_PAYMENTS,
                 projection,
-                selection + " AND " + COLUMN_PLAYER_ID + "=?",
-                new String[]{String.valueOf(year), String.valueOf(month), String.valueOf(playerId)},
+                selection ,
+                selectionArgs,
                 null,
                 null,
                 null
@@ -354,7 +354,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return payments;
     }
 
-    public ArrayList<Payment> getPaymentsByPlayerId(int playerId,View v) {
+    public ArrayList<Payment> getPaymentsByPlayerId(int playerId) {
         ArrayList<Payment> payments = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         String[] columns = {COLUMN_YEAR, COLUMN_MONTH, COLUMN_AMOUNT, COLUMN_PAYMENT_DATE};

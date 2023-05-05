@@ -78,7 +78,7 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Details about the drive");
+                builder.setTitle("Make Payment");
 
                 // set the custom layout
                 final View customLayout =inflater.inflate(R.layout.dialogpayment, null);
@@ -156,6 +156,7 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
                             Toast.makeText(i.getBaseContext(), "Whats app not installed on your device", Toast.LENGTH_SHORT).show();
                         }
                         Toast.makeText(i.getBaseContext(), "Payment made successfully.", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
                 });
 
@@ -206,16 +207,6 @@ public class PlayersRecyclerAdapter extends RecyclerView.Adapter<PlayersRecycler
 
         }
     }
-    private boolean appInstalledOrNot(String url){
-        PackageManager packageManager =i.getPackageManager();
-        boolean app_installed;
-        try {
-            packageManager.getPackageInfo(url,PackageManager.GET_ACTIVITIES);
-            app_installed = true;
-        }catch (PackageManager.NameNotFoundException e){
-            app_installed = false;
-        }
-        return app_installed;
-    }
+
 }
 
