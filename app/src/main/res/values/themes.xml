@@ -13,4 +13,7 @@
         <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="Theme.Drawertest.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Drawertest.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
